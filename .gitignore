@@ -66,6 +66,7 @@ web.config
 Web.Debug.config
 Web.Release.config
 *.asax.*
+*.asax
 
 ## TODO: If you have NuGet Package Restore enabled, uncomment this
 #packages/
