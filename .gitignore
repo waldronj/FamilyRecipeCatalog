@@ -63,7 +63,9 @@ local.properties
 .builds
 *.dotCover
 web.config
-gloabal.asax
+Web.Debug.config
+Web.Release.config
+*.asax.*
 
 ## TODO: If you have NuGet Package Restore enabled, uncomment this
 #packages/
