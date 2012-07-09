@@ -50,7 +50,11 @@ namespace IngredientCatalog
             //    ingredientList += item + "<br />";
             //}
             string pictureUploadURL = "";
-            pictureUploadURL = AddPicture();
+            if (fupLoad.HasFile)
+            {
+                pictureUploadURL = AddPicture();
+            }
+            
             string instructions = tbInstructions.Text.Replace(Environment.NewLine, "<br />");
             string ingredients = tbIngrediant.Text.Replace(Environment.NewLine, "<br />");
             if (tbPictureUrl.Text == "")
