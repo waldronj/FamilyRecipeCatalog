@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Entity.Validation;
+using System.IO;
 
 
 namespace IngredientCatalog
@@ -48,7 +49,8 @@ namespace IngredientCatalog
             //{
             //    ingredientList += item + "<br />";
             //}
-
+            string pictureUploadURL = "";
+            pictureUploadURL = AddPicture();
             string instructions = tbInstructions.Text.Replace(Environment.NewLine, "<br />");
             string ingredients = tbIngrediant.Text.Replace(Environment.NewLine, "<br />");
             if (tbPictureUrl.Text == "")
@@ -56,9 +58,23 @@ namespace IngredientCatalog
                 tbPictureUrl.Text = "http://admin.imbresources.org/photos/noImageFound.l.png";
             }
 
-            
-
-            db.Recipes.Add(
+            if (pictureUploadURL != "")
+            {
+                db.Recipes.Add(
+                  new Recipe{
+                         Name = tbName.Text,
+                         Ingredients = ingredients,
+                         Instructions = instructions,
+                         PictureURL = pictureUploadURL,
+                         Contributer = tbContributer.Text,
+                         Category = ddlCategory.SelectedValue,
+                         ServingSize = tbServingSize.Text,
+                         RecipeOrigin = tbOrigin.Text
+                    });        
+            }
+            else
+            {
+                db.Recipes.Add(
                   new Recipe{
                          Name = tbName.Text,
                          Ingredients = ingredients,
@@ -69,6 +85,9 @@ namespace IngredientCatalog
                          ServingSize = tbServingSize.Text,
                          RecipeOrigin = tbOrigin.Text
                     });        
+            }
+
+            
             mvAddRecipe.ActiveViewIndex = 1;
             
             try
@@ -103,6 +122,19 @@ namespace IngredientCatalog
             //    args.IsValid = false;
             //}
             //args.IsValid = lbIngredients.Items.Count > 0;
+        }
+
+        protected string AddPicture()
+        {
+            
+            string Extenstion = Path.GetExtension(fupLoad.FileName);
+            string newFileName = Guid.NewGuid().ToString() + Extenstion;
+            if (fupLoad.HasFile)
+            {                
+                    fupLoad.SaveAs(Server.MapPath(@"~/UploadedPictures/" + newFileName ));
+            }
+            string pictureUploadURL = "http://www.thejwal.com/recipes/uploadedpictures/" + newFileName;
+            return pictureUploadURL;
         }
 
     }

@@ -59,7 +59,13 @@
     <h3>Image Link (Optional, but won't get to see how yummy it is):</h3>
     Enter the link to your picture (http://www.letsgodigital.org/images/producten/2086/testrapport/nikon-p90-picture.jpg)
     <asp:TextBox ID="tbPictureUrl" runat="server" ></asp:TextBox><br />
-  
+    
+    <h4>Or Upload a picture:</h4>
+    <asp:FileUpload ID="fupLoad" runat="server" /> 
+    <asp:RegularExpressionValidator ID="REVfupload" runat="server" ValidationExpression="^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))(.jpg|.png|.bmp|.jpeg|.gif)$"
+            Text="Only .jpeg, .jpg, .gif, .png files allowed" ControlToValidate="fupLoad" ForeColor="Red"></asp:RegularExpressionValidator>
+            <br />
+              
     <asp:Button ID="btnAddRecipe" runat="server" Text="Add Recipe" OnClick="Add_Recipe" />
             <asp:Label ID="Label1" runat="server" ></asp:Label>
             </asp:View>
