@@ -144,6 +144,7 @@
     <asp:FormView ID="fvSelectedRecipe" runat="server" DataKeyNames="RecipeId" 
         DataSourceID="dsSelectedRecipe" OnPreRender="fvSelectedRecipe_PreRender">    
         <ItemTemplate>
+            <asp:Label ID="lblRecipeId" runat="server" Visible="false" Text='<%# Bind("RecipeId") %>'></asp:Label>
             <h3>Name:</h3>
             <asp:Label ID="NameLabel" runat="server" Text='<%# Bind("Name") %>' />
             <br /> 
@@ -166,7 +167,7 @@
             <asp:Label ID="InstructionsLabel" runat="server" 
                 Text='<%# Bind("Instructions") %>' />
             <br />
-           
+            
             
             <br />
             
@@ -175,6 +176,20 @@
         </ItemTemplate>
     </asp:FormView>
     
+            <h2>Notes:</h2>
+            <asp:ListView ID="lvSelectedRecipeNotes" runat="server" DataKeyNames="NoteId" >
+            
+                <ItemTemplate>
+                        <h3><asp:Label ID="NoteWriterLabel" runat="server" Text='<%# Eval("NoteWriter") %>' /> </h3>
+                        <asp:Label ID="NoteValueLabel" runat="server" Text='<%# Eval("NoteValue") %>' />
+                        
+                </ItemTemplate>
+              
+               
+            </asp:ListView>
+            <br />
+            <br />
+    <asp:HyperLink ID="hlAddNote" NavigateUrl="~/AddNote.aspx" OnPreRender="hlAddNote_PreRender" runat="server">Add Note</asp:HyperLink>
      </asp:View>
 
     </asp:MultiView>

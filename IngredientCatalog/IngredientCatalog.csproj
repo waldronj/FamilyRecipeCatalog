@@ -82,6 +82,7 @@
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\LoginAjax.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="AddNote.aspx" />
     <Content Include="AddRecipe.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\Site.css" />
@@ -141,7 +142,6 @@
     <Content Include="RecipeCatalog.edmx.diagram">
       <DependentUpon>RecipeCatalog.edmx</DependentUpon>
     </Content>
-    <Content Include="RecipeCatalog.edmx.sql" />
     <Content Include="RecipeCatalogModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RecipeCatalogModel.Context.cs</LastGenOutput>
@@ -151,6 +151,7 @@
       <LastGenOutput>RecipeCatalogModel.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.6.2-vsdoc.js" />
+    <Content Include="RecipeCatalog.edmx.sql" />
     <Content Include="Scripts\jquery-1.6.2.js" />
     <Content Include="Scripts\jquery-1.6.2.min.js">
       <DependentUpon>jquery-1.6.2.js</DependentUpon>
@@ -220,6 +221,13 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AddNote.aspx.cs">
+      <DependentUpon>AddNote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddNote.aspx.designer.cs">
+      <DependentUpon>AddNote.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AddRecipe.aspx.cs">
       <DependentUpon>AddRecipe.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -250,6 +258,9 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Note.cs">
+      <DependentUpon>RecipeCatalogModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recipe.cs">

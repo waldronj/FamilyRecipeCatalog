@@ -5,29 +5,60 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="RecipeCatalogModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="RecipeCatalogModelStoreContainer">
-          <EntitySet Name="Recipes" EntityType="RecipeCatalogModel.Store.Recipes" store:Type="Tables" Schema="dbo" />
-        </EntityContainer>
-        <EntityType Name="Recipes">
-          <Key>
-            <PropertyRef Name="RecipeId" />
-          </Key>
-          <Property Name="RecipeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Ingredients" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Instructions" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="PictureURL" Type="nvarchar(max)" />
-          <Property Name="Contributer" Type="nvarchar" MaxLength="50" />
-          <Property Name="Category" Type="nvarchar" MaxLength="100" />
-          <Property Name="ServingSize" Type="nchar" MaxLength="40" />
-          <Property Name="RecipeOrigin" Type="nchar" MaxLength="40" />
-        </EntityType>
-      </Schema></edmx:StorageModels>
+  <EntityContainer Name="RecipeCatalogModelStoreContainer">
+    <EntitySet Name="Recipes" EntityType="RecipeCatalogModel.Store.Recipes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Notes" EntityType="RecipeCatalogModel.Store.Notes" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_RecipeNote" Association="RecipeCatalogModel.Store.FK_RecipeNote">
+      <End Role="Recipe" EntitySet="Recipes" />
+      <End Role="Note" EntitySet="Notes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Recipes">
+    <Key>
+      <PropertyRef Name="RecipeId" />
+    </Key>
+    <Property Name="RecipeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ingredients" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Instructions" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PictureURL" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Contributer" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Category" Type="nvarchar" Nullable="true" MaxLength="100" />
+    <Property Name="ServingSize" Type="nchar" Nullable="true" MaxLength="40" />
+    <Property Name="RecipeOrigin" Type="nchar" Nullable="true" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="Notes">
+    <Key>
+      <PropertyRef Name="NoteId" />
+    </Key>
+    <Property Name="NoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NoteWriter" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NoteValue" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RecipeRecipeId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_RecipeNote">
+    <End Role="Recipe" Type="RecipeCatalogModel.Store.Recipes" Multiplicity="1" />
+    <End Role="Note" Type="RecipeCatalogModel.Store.Notes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recipe">
+        <PropertyRef Name="RecipeId" />
+      </Principal>
+      <Dependent Role="Note">
+        <PropertyRef Name="RecipeRecipeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RecipeCatalogModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="RecipeCatalogEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Recipes" EntityType="RecipeCatalogModel.Recipe" />
+          <EntitySet Name="Notes" EntityType="RecipeCatalogModel.Note" />
+          <AssociationSet Name="FK_RecipeNote" Association="RecipeCatalogModel.FK_RecipeNote">
+            <End EntitySet="Recipes" Role="Recipe" />
+            <End EntitySet="Notes" Role="Note" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Recipe">
           <Key>
@@ -42,7 +73,30 @@
           <Property Name="Category" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Type="String" Name="ServingSize" MaxLength="40" FixedLength="true" Unicode="true" />
           <Property Type="String" Name="RecipeOrigin" MaxLength="40" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Notes" Relationship="RecipeCatalogModel.FK_RecipeNote" FromRole="Recipe" ToRole="Note" />
         </EntityType>
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="NoteId" />
+          </Key>
+          <Property Name="NoteId" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="NoteWriter" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="NoteValue" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="RecipeRecipeId" Nullable="false" Type="Int32" />
+          <NavigationProperty Name="Recipe" Relationship="RecipeCatalogModel.FK_RecipeNote" FromRole="Note" ToRole="Recipe" />
+        </EntityType>
+        <Association Name="FK_RecipeNote">
+          <End Type="RecipeCatalogModel.Recipe" Multiplicity="1" Role="Recipe" />
+          <End Type="RecipeCatalogModel.Note" Multiplicity="*" Role="Note" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="RecipeId" />
+            </Principal>
+            <Dependent Role="Note">
+              <PropertyRef Name="RecipeRecipeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -52,15 +106,25 @@
     <EntitySetMapping Name="Recipes">
       <EntityTypeMapping TypeName="IsTypeOf(RecipeCatalogModel.Recipe)">
         <MappingFragment StoreEntitySet="Recipes">
-          <ScalarProperty Name="RecipeOrigin" ColumnName="RecipeOrigin" />
-                <ScalarProperty Name="ServingSize" ColumnName="ServingSize" />
-                <ScalarProperty Name="RecipeId" ColumnName="RecipeId" />
+          <ScalarProperty Name="RecipeId" ColumnName="RecipeId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Ingredients" ColumnName="Ingredients" />
           <ScalarProperty Name="Instructions" ColumnName="Instructions" />
           <ScalarProperty Name="PictureURL" ColumnName="PictureURL" />
           <ScalarProperty Name="Contributer" ColumnName="Contributer" />
           <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="ServingSize" ColumnName="ServingSize" />
+          <ScalarProperty Name="RecipeOrigin" ColumnName="RecipeOrigin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notes">
+      <EntityTypeMapping TypeName="IsTypeOf(RecipeCatalogModel.Note)">
+        <MappingFragment StoreEntitySet="Notes">
+          <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+          <ScalarProperty Name="NoteWriter" ColumnName="NoteWriter" />
+          <ScalarProperty Name="NoteValue" ColumnName="NoteValue" />
+          <ScalarProperty Name="RecipeRecipeId" ColumnName="RecipeRecipeId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

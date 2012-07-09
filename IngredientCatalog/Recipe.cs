@@ -14,6 +14,11 @@ namespace IngredientCatalog
 {
     public partial class Recipe
     {
+        public Recipe()
+        {
+            this.Notes = new HashSet<Note>();
+        }
+    
         public int RecipeId { get; set; }
         public string Name { get; set; }
         public string Ingredients { get; set; }
@@ -23,6 +28,8 @@ namespace IngredientCatalog
         public string Category { get; set; }
         public string ServingSize { get; set; }
         public string RecipeOrigin { get; set; }
+    
+        public virtual ICollection<Note> Notes { get; set; }
     }
     
 }
