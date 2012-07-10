@@ -130,6 +130,11 @@
         <asp:View ID="lvSelectedRecipe" runat="server">
             <asp:Button ID="btnBackToRecipes" runat="server" Text="Back To Recipes" OnClick="btnBackToRecipes_Click"/>
        
+            <asp:UpdatePanel ID="UpdatePanel" runat="server" UpdateMode="Always">
+                <Triggers>
+                    <asp:PostBackTrigger ControlID="btnAddNote" />
+                </Triggers>
+                <ContentTemplate>
 
        <asp:SqlDataSource ID="dsSelectedRecipe" runat="server" 
         ConnectionString="<%$ ConnectionStrings:RecipeCatalogConnectionString %>" 
@@ -140,9 +145,10 @@
         </SelectParameters>
     </asp:SqlDataSource>
 
+            
+                    
 
-    <asp:FormView ID="fvSelectedRecipe" runat="server" DataKeyNames="RecipeId" 
-        DataSourceID="dsSelectedRecipe" OnPreRender="fvSelectedRecipe_PreRender">    
+    <asp:FormView ID="fvSelectedRecipe" runat="server" DataKeyNames="RecipeId" DataSourceID="dsSelectedRecipe">    
         <ItemTemplate>
             <asp:Label ID="lblRecipeId" runat="server" Visible="false" Text='<%# Bind("RecipeId") %>'></asp:Label>
             <h3>Name:</h3>
@@ -166,31 +172,35 @@
             <h3>Instructions:</h3>
             <asp:Label ID="InstructionsLabel" runat="server" 
                 Text='<%# Bind("Instructions") %>' />
-            <br />
-            
-            
-            <br />
-            
-            <br />
-
-        </ItemTemplate>
+            </ItemTemplate>
     </asp:FormView>
     
-            <h2>Notes:</h2>
-            <asp:ListView ID="lvSelectedRecipeNotes" runat="server" DataKeyNames="NoteId" >
+
             
-                <ItemTemplate>
-                        <h3><asp:Label ID="NoteWriterLabel" runat="server" Text='<%# Eval("NoteWriter") %>' /> </h3>
-                        <asp:Label ID="NoteValueLabel" runat="server" Text='<%# Eval("NoteValue") %>' />
+            
+                    <h2>Notes:</h2>
+                    <asp:ListView ID="lvSelectedRecipeNotes" runat="server" DataKeyNames="NoteId" >
+            
+                        <ItemTemplate>
+                                <h3><asp:Label ID="NoteWriterLabel" runat="server" Text='<%# Eval("NoteWriter") %>' />: </h3>
+                                <asp:Label ID="NoteValueLabel" runat="server" Text='<%# Eval("NoteValue") %>' />
                         
-                </ItemTemplate>
+                        </ItemTemplate>
               
                
-            </asp:ListView>
-            <br />
-            <br />
-    <asp:HyperLink ID="hlAddNote" NavigateUrl="~/AddNote.aspx" OnPreRender="hlAddNote_PreRender" runat="server">Add Note</asp:HyperLink>
-     </asp:View>
+                    </asp:ListView>
+                    <br />
+                    <br />
+                    <h3>Add A Note:</h3>
+                    <h5>Name:</h5>
+                    <asp:TextBox ID="tbName" runat="server"></asp:TextBox><br />
+                    <h5>Note:</h5>
+                    <asp:TextBox ID="tbNoteValue" runat="server" TextMode="MultiLine" Width="80%" Height="200px"></asp:TextBox>
+                    <br />
+                    <asp:Button ID="btnAddNote" Text="Add Note" runat="server" OnClick="btnAddNote_Click"/>
+                </ContentTemplate>
+              </asp:UpdatePanel>
+       </asp:View>
 
     </asp:MultiView>
     

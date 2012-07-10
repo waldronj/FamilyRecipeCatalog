@@ -103,6 +103,15 @@ namespace IngredientCatalog {
         protected global::System.Web.UI.WebControls.Button btnBackToRecipes;
         
         /// <summary>
+        /// UpdatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel;
+        
+        /// <summary>
         /// dsSelectedRecipe control.
         /// </summary>
         /// <remarks>
@@ -130,12 +139,30 @@ namespace IngredientCatalog {
         protected global::System.Web.UI.WebControls.ListView lvSelectedRecipeNotes;
         
         /// <summary>
-        /// hlAddNote control.
+        /// tbName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hlAddNote;
+        protected global::System.Web.UI.WebControls.TextBox tbName;
+        
+        /// <summary>
+        /// tbNoteValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbNoteValue;
+        
+        /// <summary>
+        /// btnAddNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddNote;
     }
 }

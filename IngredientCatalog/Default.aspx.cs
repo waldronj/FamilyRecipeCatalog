@@ -49,21 +49,39 @@ namespace IngredientCatalog
             lvRecipes.DataSource = edsRecipes;
             lvRecipes.DataBind();
         }
-        
-        protected void fvSelectedRecipe_PreRender(object sender, EventArgs e)
-        {
-          
-        }
 
         protected void btnBackToRecipes_Click(object sender, EventArgs e)
         {
+            
             mvRecipes.ActiveViewIndex = 0;
         }
 
-        protected void hlAddNote_PreRender(object sender, EventArgs e)
+        protected void btnAddNote_Click(object sender, EventArgs e)
         {
-            Label lblRecipeId = (Label)fvSelectedRecipe.FindControl("lblRecipeId");
-            hlAddNote.NavigateUrl += "?RecipeId=" + lblRecipeId.Text;
+            if (tbNoteValue.Text != "" && tbName.Text != "")
+            {
+                RecipeCatalogEntities db = new RecipeCatalogEntities();
+                Label lblRecipeId = (Label)fvSelectedRecipe.FindControl("lblRecipeId");
+                int recpieId = int.Parse(lblRecipeId.Text);
+                db.Notes.Add(new Note
+                {
+                    NoteValue = tbNoteValue.Text,
+                    NoteWriter = tbName.Text,
+                    RecipeRecipeId = recpieId
+
+                });
+                db.SaveChanges();
+                tbName.Text = "";
+                tbNoteValue.Text = "";
+                
+                var selectItem = int.Parse(lvRecipes.SelectedValue.ToString());
+                var RecipeNotes = db.Notes.Where(n => n.Recipe.RecipeId == selectItem ).ToArray();
+                lvSelectedRecipeNotes.DataSourceID = null;
+                lvSelectedRecipeNotes.DataSource = RecipeNotes;
+                lvSelectedRecipeNotes.DataBind();
+               
+            }
+            
         }
 
                

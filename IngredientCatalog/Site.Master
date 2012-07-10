@@ -4,6 +4,7 @@
 <html lang="en">
 <head id="Head1" runat="server">
     <meta charset="utf-8" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
     <title>
             <%: Page.Title %>
             </title>
