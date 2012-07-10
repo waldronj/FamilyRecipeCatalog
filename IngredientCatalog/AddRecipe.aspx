@@ -35,6 +35,7 @@
         <asp:ListItem>Appetizer</asp:ListItem>
         <asp:ListItem>Main Dish</asp:ListItem>
         <asp:ListItem>Dessert</asp:ListItem>
+        <asp:ListItem>Drinks</asp:ListItem>
     </asp:DropDownList>
             <asp:RequiredFieldValidator ID="rfvCategory" runat="server" ErrorMessage="Category is required, please make a selection" ControlToValidate="ddlCategory" InitialValue="-1" ForeColor="Red" >
             </asp:RequiredFieldValidator>
