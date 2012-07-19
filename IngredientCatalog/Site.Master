@@ -35,24 +35,24 @@
                 <p class="site-title"><a runat="server" href="~/">Family Recipe Catalog</a></p>
             </div>
             <div class="float-right">
-              <%--  <section id="login">
-                    <asp:LoginView runat="server" ViewStateMode="Disabled">
-                        <AnonymousTemplate>
+              <section id="login">
+                    <asp:loginview runat="server" viewstatemode="disabled">
+                        <anonymoustemplate>
                             <ul>
-                                <li><a id="registerLink" runat="server" href="~/Account/Register.aspx">Register</a></li>
-                                <li><a id="loginLink" runat="server" href="~/Account/Login.aspx">Log in</a></li>
+                                <li><a id="registerlink" runat="server" href="~/account/register.aspx">register</a></li>
+                                <li><a id="loginlink" runat="server" href="~/account/login.aspx">log in</a></li>
                             </ul>
-                        </AnonymousTemplate>
-                        <LoggedInTemplate>
+                        </anonymoustemplate>
+                        <loggedintemplate>
                             <p>
-                                Hello, <a runat="server" class="username" href="~/Account/ChangePassword.aspx" title="Change password">
-                                    <asp:LoginName runat="server" CssClass="username" />
+                                Hello, <a runat="server" class="username" href="~/account/changepassword.aspx" title="change password">
+                                    <asp:loginname runat="server" cssclass="username" />
                                 </a>!
-                                <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" />
+                                <asp:loginstatus runat="server" logoutaction="redirect" logouttext="log off" logoutpageurl="~/" />
                             </p>
-                        </LoggedInTemplate>
-                    </asp:LoginView>
-                </section>--%>
+                        </loggedintemplate>
+                    </asp:loginview>
+                </section>
                 <nav>
                     <ul id="menu">
                         <li><a runat="server" href="~/">Home</a></li>

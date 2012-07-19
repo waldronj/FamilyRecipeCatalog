@@ -82,7 +82,6 @@
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\LoginAjax.aspx" />
     <Content Include="Account\Register.aspx" />
-    <Content Include="AddNote.aspx" />
     <Content Include="AddRecipe.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\Site.css" />
@@ -133,6 +132,7 @@
     <Content Include="Images\orderedList9.png" />
     <Content Include="Images\twitter.png" />
     <Content Include="Images\windowsLive.png" />
+    <Content Include="login.aspx" />
     <Content Include="packages.config" />
     <Content Include="Recipe.edmx.sql" />
     <EntityDeploy Include="RecipeCatalog.edmx">
@@ -221,13 +221,6 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AddNote.aspx.cs">
-      <DependentUpon>AddNote.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AddNote.aspx.designer.cs">
-      <DependentUpon>AddNote.aspx</DependentUpon>
-    </Compile>
     <Compile Include="AddRecipe.aspx.cs">
       <DependentUpon>AddRecipe.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -258,6 +251,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Note.cs">
       <DependentUpon>RecipeCatalogModel.tt</DependentUpon>
